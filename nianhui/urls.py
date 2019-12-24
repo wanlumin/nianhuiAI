@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from nianhui.attendance.views import AttendanceView,AllAttendanceView,AwardsView,RandomView
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('api/v1/awards', AwardsView.as_view(),name="awards_information"),
+    path('api/v1/attendance', AttendanceView.as_view(),name="attendance_information"),
+    path('api/v1/all_attendance', AllAttendanceView.as_view(),name="all_attendance"),
+    path('api/v1/random_add_attendance', RandomView.as_view(),name="random_add_attendance"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
